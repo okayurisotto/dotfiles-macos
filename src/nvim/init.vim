@@ -15,10 +15,6 @@ call dein#add('itchyny/lightline.vim')
 
 call dein#add('vim-denops/denops.vim')
 
-call dein#add('Shougo/ddc.vim')
-call dein#add('Shougo/ddc-around')
-call dein#add('tani/ddc-fuzzy')
-
 call dein#add('vim-skk/skkeleton')
 
 call dein#end()
@@ -32,42 +28,28 @@ endif
 
 " }}}
 
-" ddc + skkeleton {{{
+" skkeleton {{{
 
-call ddc#custom#patch_global('sources', ['around'])
-call ddc#custom#patch_global('sourceOptions', {
-  \   '_': {
-  \     'converters': ['converter_fuzzy'],
-  \     'matchers': ['matcher_fuzzy'],
-  \     'sorters': ['sorter_fuzzy'],
-  \   },
-  \   'around': {
-  \     'mark': 'around',
-  \   },
-  \ })
+cmap <C-j> <Plug>(skkeleton-toggle)
+imap <C-j> <Plug>(skkeleton-toggle)
 
-call skkeleton#config({
-  \   'eggLikeNewline': v:true,
-  \   'globalJisyo': '~/ghq/github.com/skk-dev/dict/SKK-JISYO.L',
-  \   'markerHenkan': '-',
-  \   'markerHenkanSelect': '+',
-  \   'registerConvertResult': v:true,
-  \ })
+function! s:skkeleton_init() abort
+  call skkeleton#config({
+    \   'eggLikeNewline': v:true,
+    \   'globalJisyo': '~/ghq/github.com/skk-dev/dict/SKK-JISYO.L',
+    \   'markerHenkan': '-',
+    \   'markerHenkanSelect': '+',
+    \   'registerConvertResult': v:true,
+    \ })
+  call skkeleton#register_kanatable('rom', {
+    \ "z\<Space>": ["\u3000", ''],
+    \ })
+endfunction
 
-cmap <C-j> <Plug>(skkeleton-enable)
-imap <C-j> <Plug>(skkeleton-enable)
-
-call ddc#custom#patch_global('sources', ['skkeleton'])
-call ddc#custom#patch_global('sourceOptions', {
-  \   'skkeleton': {
-  \     'mark': 'skkeleton',
-  \     'matchers': ['skkeleton'],
-  \     'sorters': [],
-  \     'minAutoCompleteLength': 2,
-  \   },
-  \ })
-
-call ddc#enable()
+augroup skkeleton-initialize-pre
+  autocmd!
+  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup END
 
 " }}}
 
