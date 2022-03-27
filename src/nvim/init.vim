@@ -15,6 +15,8 @@ call dein#add('vim-denops/denops.vim')
 
 call dein#add('vim-skk/skkeleton')
 
+call dein#add('editorconfig/editorconfig-vim')
+
 call dein#end()
 
 filetype plugin indent on
