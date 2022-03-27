@@ -12,7 +12,7 @@ vim.opt.foldmethod = 'marker'
 vim.opt.ignorecase = true
 vim.opt.inccommand = 'split'
 vim.opt.list = true
-vim.opt.matchpairs:append('<:>')
+vim.opt.matchpairs:append({ '<:>', '‘:’', '“:”', '〈:〉', '《:》', '「:」', '『:』', '【:】', '〔:〕', '（:）', '［:］', '｛:｝' })
 vim.opt.number = true
 vim.opt.scrolloff = 1
 vim.opt.shiftround = true
