@@ -11,8 +11,6 @@ call dein#begin(s:dein_dir)
 
 call dein#add(s:dein_repo_dir)
 
-call dein#add('itchyny/lightline.vim')
-
 call dein#add('vim-denops/denops.vim')
 
 call dein#add('vim-skk/skkeleton')
