@@ -17,13 +17,11 @@ eval "$(starship init zsh)" &> /dev/null
 
 # alias {{{
 
-alias clip='xclip -selection clipboard'
 alias fzf="fzf --color='prompt:cyan,pointer:cyan,marker:cyan,gutter:-1'"
 alias g='git'
 alias grep='rg'
 alias icat='mpv --pause=yes'
 alias ls='exa'
-alias sq='squoosh-cli --mozjpeg {"quality":75}'
 alias tree='exa --tree'
 alias v='nvim'
 alias vi='nvim'
