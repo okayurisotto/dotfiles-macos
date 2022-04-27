@@ -1,0 +1,26 @@
+colors:
+  primary:
+    background: "#000000"
+    foreground: "#ffffff"
+  normal:
+    black:   "#000000"
+    white:   "#7f7f7f"
+    red:     "#ff7f7f"
+    yellow:  "#ffff7f"
+    green:   "#7fff7f"
+    cyan:    "#7fffff"
+    blue:    "#7f7fff"
+    magenta: "#ff7fff"
+  bright:
+    black:   "#7f7f7f"
+    white:   "#ffffff"
+    red:     "#ff0000"
+    yellow:  "#ffff00"
+    green:   "#00ff00"
+    cyan:    "#00ffff"
+    blue:    "#0000ff"
+    magenta: "#ff00ff"
+font:
+  normal:
+    family: PlemolJP Console NF
+  size: 20
