@@ -1,28 +1,32 @@
-# system {{{
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
-typeset -U PATH
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+export WWW_HOME='https://www.google.com/'
 
-autoload -U compinit && compinit
-zstyle ':completion:*' menu select
+export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.deno/bin:$PATH"
+export PATH="$HOME/.nodebrew/current/bin:$PATH"
+export PATH="$PNPM_HOME:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-setopt hist_ignore_all_dups
-setopt hist_ignore_dups
-setopt share_history
+eval "$(brew shellenv)"
 
-bindkey -e
+export EDITOR="$(which nvim)"
+export FZF_DEFAULT_OPTS="$(cat $XDG_CONFIG_HOME/fzf/config)"
+export LANG="en_US.UTF-8"
 
-eval "$(starship init zsh)" &> /dev/null
-
-# }}}
-
-# alias {{{
-
-alias fzf="fzf --color='prompt:cyan,pointer:cyan,marker:cyan,gutter:-1'"
 alias g='git'
-alias grep='rg'
+alias t='tmux'
 alias icat='mpv --pause=yes'
 alias ls='exa'
 alias tree='exa --tree'
 alias v='nvim'
 
-# }}}
+autoload -U compinit && compinit
+bindkey -e
+eval "$(starship init zsh)"
+typeset -U PATH
+zstyle ':completion:*' menu select
