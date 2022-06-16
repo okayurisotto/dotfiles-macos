@@ -11,10 +11,13 @@ export PATH="$HOME/.deno/bin:$PATH"
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
 export PATH="$PNPM_HOME:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/ed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/python@3.10/bin:$PATH"
 
 eval "$(brew shellenv)"
 
 export EDITOR="$(which nvim)"
+export FZF_DEFAULT_COMMAND="$(which fd --no-follow)"
 export FZF_DEFAULT_OPTS="$(cat $XDG_CONFIG_HOME/fzf/config)"
 export LANG="en_US.UTF-8"
 
