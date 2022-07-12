@@ -1,35 +1,86 @@
+# Homebrew    ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
+
+eval "$(brew shellenv)"
+
+# XDG Base Directory  ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
+
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
-export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-export WWW_HOME='https://www.google.com/'
+# for applications    ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
 
-export PATH="$HOME/.bin:$PATH"
-export PATH="$HOME/.deno/bin:$PATH"
-export PATH="$HOME/.nodebrew/current/bin:$PATH"
-export PATH="$PNPM_HOME:$PATH"
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/ed/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/python@3.10/bin:$PATH"
-
-eval "$(brew shellenv)"
-
-export EDITOR="$(which nvim)"
-export FZF_DEFAULT_COMMAND="$(which fd --no-follow)"
-export FZF_DEFAULT_OPTS="$(cat $XDG_CONFIG_HOME/fzf/config)"
 export LANG="en_US.UTF-8"
 
+export ASDF_DATA_DIR="$XDG_DATA_HOME/asdf"
+export EDITOR="$(which nvim)"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+
+export FZF_DEFAULT_COMMAND="$(which fd) --no-follow"
+export FZF_DEFAULT_OPTS="$(cat $XDG_CONFIG_HOME/fzf/config)"
+
+# PATH    ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
+
+prepend_path () {
+  case ":$PATH:" in
+    *:"$1":*)
+      ;;
+    *)
+      PATH="$1${PATH:+:$PATH}"
+  esac
+}
+
+prepend_path "$HOME/.bin"
+prepend_path "$HOME/.deno/bin"
+prepend_path "$PNPM_HOME"
+prepend_path "/usr/local/opt/coreutils/libexec/gnubin"
+
+# Zsh settings    ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
+
+autoload -U compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+zstyle ':completion:*' menu select
+
+bindkey -e
+
+typeset -U PATH
+
+eval "$(starship init zsh)"
+
+# Alias   ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
+
 alias g='git'
-alias t='tmux'
+alias grep='rg'
 alias icat='mpv --pause=yes'
-alias ls='exa'
+alias ls='exa --sort=Name'
+alias t='tmux'
 alias tree='exa --tree'
 alias v='nvim'
 
-autoload -U compinit && compinit
-bindkey -e
-eval "$(starship init zsh)"
-typeset -U PATH
-zstyle ':completion:*' menu select
+# SSH ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
+
+env="$HOME/.ssh/agent.env"
+
+[[ -f "$env" ]] && . "$env" &> /dev/null
+
+agent_run_state="$(ssh-add -l &> /dev/null; echo $?)"
+# 0: agent is     running with    key!
+# 1: agent is     running without key.
+# 2: agent is not running            .
+
+if [[ ! "$SSH_AUTH_SOCK" ]] || [[ "$agent_run_state" = '2' ]]; then
+  umask 077
+  ssh-agent > "$env" 2> /dev/null
+  . "$env" > /dev/null
+
+  ssh-add
+elif [[ "$SSH_AUTH_SOCK" ]] && [[ "$agent_run_state" = '1' ]]; then
+  ssh-add
+fi
+
+unset agent_run_state
+
+# Misc    ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>
+
+. /usr/local/opt/asdf/libexec/asdf.sh
