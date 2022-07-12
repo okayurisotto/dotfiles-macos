@@ -4,7 +4,6 @@ XDG_CONFIG_HOME ?= $(HOME)/.config
 set:
 	mkdir -p $(XDG_CONFIG_HOME)
 	
-	ln -fsv $(PWD)/src/tmux/.tmux.conf $(HOME)
 	ln -fsv $(PWD)/src/zsh/.zshrc      $(HOME)
 	
 	ln -fsv $(PWD)/src/alacritty $(XDG_CONFIG_HOME)
@@ -13,6 +12,7 @@ set:
 	ln -fsv $(PWD)/src/git       $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/mpv       $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/nvim      $(XDG_CONFIG_HOME)
+	ln -fsv $(PWD)/src/tmux      $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/yt-dlp    $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/ytfzf     $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/zsh       $(XDG_CONFIG_HOME)
@@ -21,7 +21,6 @@ set:
 
 .PHONY: unset
 unset:
-	rm -fv $(HOME)/.tmux.conf
 	rm -fv $(HOME)/.zshrc
 	
 	rm -fv $(XDG_CONFIG_HOME)/alacritty
@@ -30,6 +29,7 @@ unset:
 	rm -fv $(XDG_CONFIG_HOME)/git
 	rm -fv $(XDG_CONFIG_HOME)/mpv
 	rm -fv $(XDG_CONFIG_HOME)/nvim
+	rm -fv $(XDG_CONFIG_HOME)/tmux
 	rm -fv $(XDG_CONFIG_HOME)/yt-dlp
 	rm -fv $(XDG_CONFIG_HOME)/ytfzf
 	rm -fv $(XDG_CONFIG_HOME)/zsh
