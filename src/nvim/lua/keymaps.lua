@@ -4,22 +4,6 @@ local set_keymap = function(modes, lhs, rhs)
   end
 end
 
--- fold {{{
-
-set_keymap({ 'n' }, '<Tab>', '<Cmd>foldopen<CR>')
-set_keymap({ 'n' }, '<S-Tab>', '<Cmd>foldclose<CR>')
-
--- }}}
-
--- search {{{
-
-set_keymap({ 'n' }, '<C-c><C-c>', '<Cmd>nohlsearch<CR>')
-
-set_keymap({ 'n', 'v' }, 'n', 'nzz')
-set_keymap({ 'n', 'v' }, 'N', 'Nzz')
-
--- }}}
-
 -- cursor {{{
 
 set_keymap({ 'n', 'v' }, 'gj',  'j')
@@ -30,6 +14,23 @@ set_keymap({ 'n', 'v' },  'k', 'gk')
 -- https://postd.cc/how-to-boost-your-vim-productivity/
 set_keymap({ 'n', 'v' }, 'p', 'p`]')
 set_keymap({      'v' }, 'y', 'y`]')
+
+set_keymap({ 'c' }, '<C-f>', '<Right>');
+set_keymap({ 'c' }, '<C-b>', '<Left>');
+
+-- }}}
+
+-- fold {{{
+
+set_keymap({ 'n' }, '<Tab>', ':foldopen<CR>');
+set_keymap({ 'n' }, '<S-Tab>', ':foldclose<CR>');
+
+-- }}}
+
+-- indent {{{
+
+set_keymap({ 'n' }, '<S-h>', '<<');
+set_keymap({ 'n' }, '<S-l>', '>>');
 
 -- }}}
 
@@ -42,6 +43,15 @@ set_keymap({ 'n' }, '<C-j>', '<S-j>')
 
 -- }}}
 
+-- search {{{
+
+set_keymap({ 'n' }, '<C-c><C-c>', ':nohlsearch<CR>')
+
+set_keymap({ 'n', 'v' }, 'n', 'nzz')
+set_keymap({ 'n', 'v' }, 'N', 'Nzz')
+
+-- }}}
+
 -- <Leader> {{{
 
 set_keymap({ 'n', 'v' }, '<Leader><CR>',     ':')
@@ -51,32 +61,31 @@ set_keymap({ 'n', 'v' }, '<Leader>j',        'G')
 set_keymap({ 'n', 'v' }, '<Leader>k',        'gg')
 set_keymap({ 'n', 'v' }, '<Leader>l',        '$')
 
-set_keymap({ 'n' }, '<Leader>q', '<Cmd>q<CR>')
-set_keymap({ 'n' }, '<Leader>w', '<Cmd>w<CR>')
+set_keymap({ 'n' }, '<Leader>q', ':q<CR>')
+set_keymap({ 'n' }, '<Leader>w', ':w<CR>')
 
 -- }}}
 
 -- <C-f> {{{
 
--- https://qiita.com/delphinus/items/aea16e82de2145d2a6b7
 local prefixes = {
   ['n'] = '',
   ['i'] = '<Esc>',
   ['t'] = '<C-\\><C-N><Esc>',
 }
 local entries = {
-  ['-'] =       '<Cmd>split<CR>',
-  ['<CR>'] =    ':',
-  ['<Esc>'] =   '',
-  ['H'] =       '<C-w>H',
-  ['J'] =       '<C-w>J',
-  ['K'] =       '<C-w>K',
-  ['L'] =       '<C-w>L',
-  ['\\'] =      '<Cmd>vsplit<CR>',
-  ['h'] =       '<C-w>h',
-  ['j'] =       '<C-w>j',
-  ['k'] =       '<C-w>k',
-  ['l'] =       '<C-w>l',
+  ['-'] =     ':split<CR>',
+  ['<CR>'] =  ':',
+  ['<Esc>'] = '',
+  ['H'] =     '<C-w>H',
+  ['J'] =     '<C-w>J',
+  ['K'] =     '<C-w>K',
+  ['L'] =     '<C-w>L',
+  ['\\'] =    ':vsplit<CR>',
+  ['h'] =     '<C-w>h',
+  ['j'] =     '<C-w>j',
+  ['k'] =     '<C-w>k',
+  ['l'] =     '<C-w>l',
 }
 
 for mode, prefix in pairs(prefixes) do
@@ -84,23 +93,5 @@ for mode, prefix in pairs(prefixes) do
     set_keymap({ mode }, '<C-f>' .. input, prefix .. output)
   end
 end
-
--- }}}
-
--- o {{{
-
-set_keymap({ 'o' }, "'", "i'")
-set_keymap({ 'o' }, '"', 'i"')
-set_keymap({ 'o' }, '(', 'i(')
-set_keymap({ 'o' }, '<', 'i<')
-set_keymap({ 'o' }, '[', 'i[')
-set_keymap({ 'o' }, '{', 'i{')
-
--- }}}
-
--- indent {{{
-
-set_keymap({ 'n' }, '<', '<<')
-set_keymap({ 'n' }, '>', '>>')
 
 -- }}}
