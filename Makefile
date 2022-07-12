@@ -13,8 +13,6 @@ set:
 	ln -fsv $(PWD)/src/mpv       $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/nvim      $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/tmux      $(XDG_CONFIG_HOME)
-	ln -fsv $(PWD)/src/yt-dlp    $(XDG_CONFIG_HOME)
-	ln -fsv $(PWD)/src/ytfzf     $(XDG_CONFIG_HOME)
 	ln -fsv $(PWD)/src/zsh       $(XDG_CONFIG_HOME)
 	
 	ln -fsv $(PWD)/src/starship/starship.toml $(XDG_CONFIG_HOME)
@@ -30,8 +28,6 @@ unset:
 	rm -fv $(XDG_CONFIG_HOME)/mpv
 	rm -fv $(XDG_CONFIG_HOME)/nvim
 	rm -fv $(XDG_CONFIG_HOME)/tmux
-	rm -fv $(XDG_CONFIG_HOME)/yt-dlp
-	rm -fv $(XDG_CONFIG_HOME)/ytfzf
 	rm -fv $(XDG_CONFIG_HOME)/zsh
 	
 	rm -fv $(XDG_CONFIG_HOME)/starship.toml
